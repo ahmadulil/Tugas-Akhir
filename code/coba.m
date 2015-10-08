@@ -75,23 +75,19 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in Browseimage.
 function Browseimage_Callback(hObject, eventdata, handles) 
-global vidObj;
-handles.output = hObject;
-[fn pn] = uigetfile('*.avi','select video file');
+global complete;
+[fn pn] = uigetfile('*.mp4','select video file');
 complete = strcat(pn,fn);
-% handles.
-vidObj = VideoReader(complete);
-vidObj.CurrentTime = 0.5;
-
-
 
 % --- Executes on button press in proses.
 function proses_Callback(hObject, eventdata, handles)
-currAxes = axes1;
-while hasFrame(vidObj)
-    vidFrame = readFrame(vidObj);
-    image(vidFrame, 'Parent', currAxes);
-    currAxes.Visible = 'off';
+global complete;
+vidObj = VideoReader(complete);
+for i=21:max(vidObj.NumberOfFrames) 
+    handles.axes1;
+    vidFrame = rgb2gray(read(vidObj,i));
+    foreground= uint8(vidFrame)-uint8(bacgroundsubstract(vidObj,i));
+    imshow(foreground,[]);
     pause(1/vidObj.FrameRate);
 end
 
