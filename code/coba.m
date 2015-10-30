@@ -76,8 +76,9 @@ varargout{1} = handles.output;
 % --- Executes on button press in Browseimage.
 function Browseimage_Callback(hObject, eventdata, handles) 
 global complete;
-[fn pn] = uigetfile('*.mp4','select video file');
-complete = strcat(pn,fn);
+% [fn pn] = uigetfile('*.mp4','select video file');
+% complete = strcat(pn,fn);
+complete='viplanedeparture.avi';
 
 % --- Executes on button press in proses.
 function proses_Callback(hObject, eventdata, handles)
@@ -86,10 +87,15 @@ vidObj = VideoReader(complete);
 for i=21:max(vidObj.NumberOfFrames) 
     handles.axes1;
     vidFrame = rgb2gray(read(vidObj,i));
-    foreground= uint8(vidFrame)-uint8(bacgroundsubstract(vidObj,i));
-    imshow(foreground,[]);
-    pause(1/vidObj.FrameRate);
+%     foreground=uint8(vidFrame)-uint8(bacgroundsubstract(vidObj,i));
+    imshow(vidFrame,[]);
+    pause(1/(vidObj.FrameRate));
 end
+%     handles.axes1;
+%     vidFrame = rgb2gray(read(vidObj,41));
+%     fore=uint8(vidFrame)-uint8(bacgroundsubstract(vidObj,41));
+%     foreground=(fore >=30);
+%     imshow(foreground,[]);
 
 % --- Executes on selection change in popupmenu1.
 function popupmenu1_Callback(hObject, eventdata, handles)

@@ -8,9 +8,11 @@ end
 x=zeros(m,n);
 for i=1:m
     for j=1:n
-        x(i,j)=median(frame(start:curentframe,i,j));
-    end
+        y=median(frame(start:curentframe,i,j));
+        x(i,j)=y;
+        end
 end
-foregroundimage=x;
+    foregroundimage=x;  
 end
+
 
