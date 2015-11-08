@@ -87,7 +87,7 @@ vidObj = VideoReader(complete);
 for i=21:max(vidObj.NumberOfFrames) 
     handles.axes1;
     vidFrame = rgb2gray(read(vidObj,i));
-    foreground=uint8(vidFrame)-uint8(bacgroundsubstract(vidObj,i));
+    foreground=bakground(vidObj,i);
     imshow(vidFrame,[]);
     pause(1/(vidObj.FrameRate));
 end
