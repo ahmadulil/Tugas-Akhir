@@ -1,10 +1,5 @@
 function foregroundimage = bakground(nframe,video,curentframe)
-if curentframe > nframe
-    start=curentframe-nframe;
-else
-    start=1;
-end
-start
+start=curentframe-nframe;
 [m,n,l]=size(read(video,curentframe));
 frame=zeros(nframe,m,n);
 
@@ -15,14 +10,16 @@ end
 x=zeros(m,n);
 
 x(:,:)=median(frame(start:curentframe,:,:));
-save('x.mat','x');
+
 xfor=zeros(m,n);
-c=zeros(m,n);
-c(:,:)=reshape(frame(curentframe,:,:),[m,n]);
+c=zero
+c(:,:)=frame(curentframe,:,:);
+save('x.mat','x');
+save('c.mat','c');
+xfor=(frame(curentframe,:,:)-x) > 25
 
-xfor=abs(c-x) > 25;
+
 foregroundimage=xfor;
-
 end
 
 

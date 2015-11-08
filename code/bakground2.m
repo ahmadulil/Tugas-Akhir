@@ -17,7 +17,7 @@ xfor=zeros(m,n);
 
     for i=1:m
 		for j=1:n
-			if ((curentframe(i,j) - x(i,j)) > 25 )
+			if ((frame(curentframe,i,j) - x(i,j)) > 25 )
 				xfor(i,j)=1;
 			end
 		end
