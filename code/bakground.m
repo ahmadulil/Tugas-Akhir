@@ -15,12 +15,12 @@ end
 x=zeros(m,n);
 
 x(:,:)=median(frame(start:curentframe,:,:));
-save('x.mat','x');
-xfor=zeros(m,n);
-c=zeros(m,n);
-c(:,:)=reshape(frame(curentframe,:,:),[m,n]);
 
-xfor=abs(c-x) > 25;
+xfor=zeros(m,n);
+d(:,:)=frame(curentframe,:,:);
+% c(:,:)=reshape(frame(curentframe,:,:),[m,n]);
+
+xfor=abs(d-x) > 25;
 foregroundimage=xfor;
 
 end
