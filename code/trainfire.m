@@ -2,9 +2,9 @@ clc;
 clear;
 ind=0
 model=zeros(1,3);
-srcFiles = dir('C:\Users\Asprak-69\Documents\Sisrek Ulil\Tugas-Akhir-master\clone\Tugas-Akhir\Train image\*.jpg');  % the folder in which ur images exists
+srcFiles = dir('C:\Users\Asprak-69\Documents\Sisrek Ulil\Tugas-Akhir\train image touch 2\*.jpg');  % the folder in which ur images exists
 for i = 1 : length(srcFiles)
-    filename = strcat('C:\Users\Asprak-69\Documents\Sisrek Ulil\Tugas-Akhir-master\clone\Tugas-Akhir\Train image\',srcFiles(i).name);
+    filename = strcat('C:\Users\Asprak-69\Documents\Sisrek Ulil\Tugas-Akhir\train image touch 2\',srcFiles(i).name);
     img{i} = imread(filename);
     [a,b,c]=size(img{i});
     for j=1:a

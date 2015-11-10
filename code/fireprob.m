@@ -1,12 +1,12 @@
 function out = fireprob(rgb)
 load trainfire.mat
-[a,b]=size(model);
+[sz,ss]=size(model);
 vari(1)=var(model(:,1));
 vari(2)=var(model(:,2));
 vari(3)=var(model(:,3));
 nilai=0;
 
-for i=1:a
+for i=1:sz
     term1=1;
     for j=1:3
         a=double(rgb(j));
