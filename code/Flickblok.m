@@ -1,4 +1,4 @@
-function Fblok = Flickblok(nframe,curentframe,video,startpx,endpx)
+function Fblok = Flickblok(nframe,curentframe,video,startp,endp)
 % flickerE(nframe,curentframe,video,px,py)
     sumf=0;
     sum=0;
