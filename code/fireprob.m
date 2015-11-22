@@ -20,6 +20,6 @@ for i=1:sz
     nilai=nilai+term1;
     
 end
-out=nilai/a;
+out=nilai/sz;
 end
 

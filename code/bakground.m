@@ -4,7 +4,7 @@ if curentframe > nframe
 else
     start=1;
 end
-
+curentframe=curentframe-1;
 [m,n,l]=size(read(video,curentframe));
 frame=zeros(nframe,m,n);
 
