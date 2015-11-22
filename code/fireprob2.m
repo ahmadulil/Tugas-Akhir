@@ -5,10 +5,7 @@ vari(1)=var(model(:,1));
 vari(2)=var(model(:,2));
 vari(3)=var(model(:,3));
 nilai=0;
-%         img=double(img);
-%         model=double(model);
-%         c=double((a-b)).^2;
-%         d=(1/2)*(-c/vari(j));
+
 term1=1;
 for j=1:3
      a=double(img(:,:,j));

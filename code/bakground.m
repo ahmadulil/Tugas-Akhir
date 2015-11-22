@@ -1,4 +1,4 @@
-function foregroundimage = bakground(nframe,video,curentframe)
+function foregroundimage = bakground(thresh,nframe,video,curentframe)
 if curentframe > nframe
     start=curentframe-nframe;
 else
@@ -18,9 +18,8 @@ x(:,:)=median(frame(start:curentframe,:,:));
 
 xfor=zeros(m,n);
 d(:,:)=frame(curentframe,:,:);
-% c(:,:)=reshape(frame(curentframe,:,:),[m,n]);
 
-xfor=abs(d-x) > 25;
+xfor=abs(d-x) > thresh;
 foregroundimage=xfor;
 
 end
