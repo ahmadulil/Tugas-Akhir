@@ -1,6 +1,6 @@
 clc;
 clear;
-img=imread('fire.jpg');
+img=imread('15.jpg');
 [m,n,l]=size(img);
 firep=zeros(m,n);
 for i=1:m
