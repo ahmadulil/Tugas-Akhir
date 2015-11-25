@@ -1,12 +1,8 @@
-function F = flickerE(thresh,nframe,curentframe,video,px,py)
+function F = flickerE(thresh,nframe,curentfram)
     startf=curentframe-nframe;
     endf=curenframe-1;
-    ci=0;
-    probc=threshprob(read(video,i)(px,py,:));
-    for i=startf:endf
-        if (probc ~= threshprob(thresh,read(video,i)(px,py,:)) )
-            ci=ci+1;
-        end
+    for i=starf:endf
+        
     end
     F = 2^ci - 1;
     
