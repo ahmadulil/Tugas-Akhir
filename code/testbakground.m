@@ -1,6 +1,6 @@
 function akurasi = testbakground(thresh,v,label)
     
-    for i=21:v.NumberOfFrame
+    for i=21:length(label)
         xfor=bakground(thresh,20,v,30);
         xfor=uint8(xfor);
         xfor(xfor==0)=20;
