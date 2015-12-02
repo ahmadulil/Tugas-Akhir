@@ -1,7 +1,6 @@
-load video.mat;
-load videolabel.mat;
+t20=testmoving(20);
+% t25=testmoving(25);
+% t30=testmoving(30);
+% t35=testmoving(35);
+% t40=testmoving(40);
 
-akurasi=testbakground(25,vnonfire1,nonfire1);
-akurasi1=testbakground(25,vfire1,fire1);
-akurasi2=testbakground(25,vfire2,fire2);
-akurasi3=testbakground(25,vfire3,fire3);
