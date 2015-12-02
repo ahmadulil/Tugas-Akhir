@@ -3,9 +3,9 @@ function [eblok,Ew] = wblok(img,startp,endp)
 	
     [n1,n2]=size(LL);
 	
-    HL1=HL^2;
-	LH1=LH^2;
-	HH1=HH^2;
+    HL1=HL.^2;
+	LH1=LH.^2;
+	HH1=HH.^2;
     
 	Ew=HL1+LH1+HH1;
 	eblok=sum(sum(Ew))/(n1+n2);
