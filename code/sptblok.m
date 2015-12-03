@@ -7,9 +7,10 @@ function vblok = sptblok(video,nframe,ncurent,startp,endp)
             % nsum=nsum+spt(nframe,ncurent,i,j,arrE,curentE);
         % end
     % end
+%     [eblok,Ew] = wblok(img,startp,endp)
 startf=ncurent-nframe+1;
 for i=startf:ncurent
-	[arrE(:,:,i),arrblok(i)]=wblok(read(video,i),startp,endp);
+	[arrblok(i),arrE(:,:,i)]=wblok(read(video,i),startp,endp);
 end
 v(:,:)=var(arrE(:,:,:));
 [n1,n2]=size(v);
