@@ -8,7 +8,7 @@ function akurasi = testbakground(thresh,v,label)
         label{i}=uint8(label{i});
         label{i}(label{i}==1)=20;
         a=sum(sum(label{i}==xfor));
-        accur(i)=a/b;
+        accur(i)=a;
     end
     akurasi=accur(:);
 end
