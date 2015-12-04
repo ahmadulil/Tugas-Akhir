@@ -1,4 +1,4 @@
-function akurasi = akurasibakgroundallvideo(thresh)
+function out = akurasibakgroundallvideo(treshvideo,label)
 load video.mat;
 load videolabel.mat;
 
