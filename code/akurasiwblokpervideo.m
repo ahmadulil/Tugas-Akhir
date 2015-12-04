@@ -17,7 +17,7 @@ for k=1:length(label)
             endp=[(i+1)*divi;(j+1)*divj]; %pixel blok
             startp=uint8(startp);
             endp=uint8(endp);
-            waveblok(i+1,j+1)=threshwblok(thresh,rgb,startp,endp); %hitung nilai wblok
+            waveblok(i+1,j+1)=sptblok(thresh,rgb,startp,endp); %hitung nilai wblok
             
             if (sum(sum(label{k}(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
                 actblok(i+1,j+1)=1; %penanda label 
