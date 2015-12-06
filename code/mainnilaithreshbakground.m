@@ -1,6 +1,8 @@
-t20=testmoving(20);
-t25=testmoving(25);
-t30=testmoving(30);
-t35=testmoving(35);
-t40=testmoving(40);
-
+tic
+t20=akurasibakgroundallvideo(20);
+t25=akurasibakgroundallvideo(25);
+t30=akurasibakgroundallvideo(30);
+t35=akurasibakgroundallvideo(35);
+t40=akurasibakgroundallvideo(40);
+save('test5thresholdbakground.mat','t20','t25','t30','t35','t40');
+toc

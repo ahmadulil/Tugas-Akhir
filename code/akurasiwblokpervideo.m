@@ -17,7 +17,7 @@ for k=1:length(label)
             endp=[(i+1)*divi;(j+1)*divj]; %pixel blok
             startp=uint8(startp);
             endp=uint8(endp);
-            waveblok(i+1,j+1)=sptblok(thresh,rgb,startp,endp); %hitung nilai wblok
+            waveblok(i+1,j+1)=threshwblok(thresh,rgb,startp,endp); %hitung nilai wblok
             
             if (sum(sum(label{k}(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
                 actblok(i+1,j+1)=1; %penanda label 
@@ -28,19 +28,37 @@ for k=1:length(label)
     sumF=sum(sum(actblok==0)); %hitung jumlah label blok bukan api
     sumT=sum(sum(actblok==1)); %hitung jumlah label blok api
     
-    NF=waveblok;
-    FL=actblok;
+    WF=waveblok;
+    AF=actblok;
+    WP=waveblok;
+    AP=actblok;
     
+    TP=bsxfun(@times,actblok,waveblok); %hitung jumlah blok api terdeteksi dengan benar
+    TN=bsxfun(@times,~actblok,~waveblok); %hitung true negative
     
-    PT=bsxfun(@times,actblok,waveblok); %hitung jumlah blok api terdeteksi dengan benar
+    WP(WP==1)=10; %tanda blok api pada prediksi
+    AP(AP==0)=10; %tanda blok bukan api pada label
     
-    NF(NF==1)=10; %tanda blok api pada prediksi
-    FL(FL==0)=10; %tanda blok bukan api pada label
+    WF(WF==0)=10; %tanda blok bukan api pada prediksi
+    AF(AF==1)=10; %tanda blok api pada label
     
-    FP=sum(sum(NF==FL))/sumF; %hitung blok bukan api jadi api
-    TP=sum(sum(PT))/sumT;
+    TNR=sum(sum(TN))/sumF; %TNR label bukan api jadi api
+    FPR=sum(sum(WP==AP))/sumF; %FPR label bukan api jadi api
+    FNR=sum(sum(WF==AF))/sumT; %FNR label api jadi bukan api
+    TPR=sum(sum(TP))/sumT; %TPR label api jadi api 
+    LRP=TPR/FPR; %like hood ratio positive
+    LRN=FNR/TNR; %like hood ratio negative
+    DOR=LRP/LRN; %Diagnostic odds ratio
     
-    akurasi(k)=TP/FP; %hitung akurasi false positive
+    akurasi(k).TPR=TPR;
+    akurasi(k).TNR=TNR;
+    akurasi(k).FNR=FNR;
+    akurasi(k).FPR=FPR;
+    akurasi(k).LRP=LRP;
+    akurasi(k).LRN=LRN;
+    akurasi(k).DOR=DOR;
+    
+    akurasi(k).hasil=waveblok;
 end
 out=akurasi;
 end

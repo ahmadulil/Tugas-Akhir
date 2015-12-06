@@ -13,7 +13,6 @@ nsum(:,:)=zeros(m,n);
 for i=curentframe-nframe:curentframe-1
     iprob(:,:)=threshprob(21,imgc(startpx(1):endpx(1),startpx(2):endpx(2)));
     nsum(:,:)=nsum(:,:)+(iprob~=cprob);
-    
 end
 end
 

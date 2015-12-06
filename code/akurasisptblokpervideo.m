@@ -32,20 +32,37 @@ for k=31:length(label)
     sumF=sum(sum(actblok==0)); %hitung jumlah label blok bukan api
     sumT=sum(sum(actblok==1)); %hitung jumlah label blok api
     
+    WF=sptfblok;
+    AF=actblok;
+    WP=sptfblok;
+    AP=actblok;
     
-    NT=sptfblok;
-    NF=actblok;
+    TP=bsxfun(@times,actblok,sptfblok); %hitung jumlah blok api terdeteksi dengan benar
+    TN=bsxfun(@times,~actblok,~sptfblok); %hitung true negative
     
+    WP(WP==1)=10; %tanda blok api pada prediksi
+    AP(AP==0)=10; %tanda blok bukan api pada label
     
-    PT=bsxfun(@times,actblok,sptfblok); %hitung jumlah blok api terdeteksi dengan benar
+    WF(WF==0)=10; %tanda blok bukan api pada prediksi
+    AF(AF==1)=10; %tanda blok api pada label
     
-    NT(NT==1)=10; %tanda blok api pada prediksi
-    NF(NF==0)=10; %tanda blok bukan api pada label
+    TNR=sum(sum(TN))/sumF; %TNR label bukan api jadi api
+    FPR=sum(sum(WP==AP))/sumF; %FPR label bukan api jadi api
+    FNR=sum(sum(WF==AF))/sumT; %FNR label api jadi bukan api
+    TPR=sum(sum(TP))/sumT; %TPR label api jadi api 
+    LRP=TPR/FPR; %like hood ratio positive
+    LRN=FNR/TNR; %like hood ratio negative
+    DOR=LRP/LRN; %Diagnostic odds ratio
     
-    FP=sum(sum(NT==NF))/sumF; %hitung blok bukan api jadi api
-    TP=sum(sum(PT))/sumT;
+    akurasi(k).TPR=TPR;
+    akurasi(k).TNR=TNR;
+    akurasi(k).FNR=FNR;
+    akurasi(k).FPR=FPR;
+    akurasi(k).LRP=LRP;
+    akurasi(k).LRN=LRN;
+    akurasi(k).DOR=DOR;
     
-    akurasi(k)=TP/FP; %hitung akurasi false positive
+    akurasi(k).hasil=sptfblok;
 end
 out=akurasi;
 end
