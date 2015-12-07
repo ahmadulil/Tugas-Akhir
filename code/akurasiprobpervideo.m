@@ -1,8 +1,8 @@
 function out = akurasiprobpervideo(thresh,video,label)
-
+load trainfire.mat
 for i=1:length(label)
     rgb=read(video,i);
-    probimg(:,:)=threshprob(thresh,rgb); %hitung prediksi prob colour video 
+    probimg(:,:)=threshprob(model,thresh,rgb); %hitung prediksi prob colour video 
     sumT=(sum(sum(label{i}==1))); %hitung jumlah prob api yang benar
     sumF=(sum(sum(label{i})==0)); %hitung jumlah prob api yang benar
     

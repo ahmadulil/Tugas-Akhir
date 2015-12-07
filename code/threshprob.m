@@ -1,4 +1,4 @@
-function out = threshprob(thresh,img)
-prob=fireprob4(img);
+function out = threshprob(model,thresh,img)
+prob=fireprob4(model,img);
 out=prob > thresh;
 end

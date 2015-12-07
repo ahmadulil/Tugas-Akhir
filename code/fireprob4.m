@@ -1,5 +1,5 @@
-function out = fireprob4(img)
-load trainfire.mat
+function out = fireprob4(model,img)
+
 
 [m,n,l]=size(img);
 term1=1;

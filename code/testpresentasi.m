@@ -1,12 +1,4 @@
-
-% bakground(thresh,nframe,video,curentframe)
-% 
-% moving=bakground(25,20,vfire2,31);
-% figure,imshow(moving);
-% probimg=threshprob(threshold+3*stdprob,read(vfire2,31));
-% figure,imshow(im2bw(probimg));
 [m,n,l]=size(read(vfire2,1));
-
 divi=m/16;
 divj=n/16;
 sizeblok=divi*divj;
