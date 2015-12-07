@@ -20,8 +20,8 @@ for k=31:length(label)
             
             startp=uint8(startp);
             endp=uint8(endp);
-            
-            sptfblok(i+1,j+1)=threshsptblok(thresh,video,30,k,startp,endp,arrEblok); %hitung nilai wblok
+%             function out = threshsptblok(thresh,video,nframe,ncurent,startp,endp,arrEblok)
+            sptfblok(i+1,j+1)=threshsptblok(thresh,video,30,k,i,j,arrEblok); %hitung nilai wblok
             
             if (sum(sum(label{k}(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
                 actblok(i+1,j+1)=1; %penanda label 

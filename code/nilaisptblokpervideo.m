@@ -9,7 +9,6 @@ threshd=sizeblok/8; %threshold 12,5 % aktif fire
 for k=1:length(label)
     [eblok,arrEblok(:,:,k)]=wblok(read(video,k),[1 1],[m n]); %ngitung arre dlu biar cepet
 end
- 
 
 for k=31:length(label)
     actblok=zeros(16,16);
@@ -22,7 +21,7 @@ for k=31:length(label)
             startp=uint8(startp);
             endp=uint8(endp);
             
-            sptfblok(i+1,j+1)=sptblok(video,30,k,startp,endp,arrEblok); %hitung nilai wblok
+            sptfblok(i+1,j+1)=sptblok(video,30,k,i,j,arrEblok); %hitung nilai wblok
             
             if (sum(sum(label{k}(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
                 actblok(i+1,j+1)=1; %penanda label 

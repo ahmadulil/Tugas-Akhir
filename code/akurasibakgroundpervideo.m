@@ -11,8 +11,8 @@ function out = akurasibakgroundpervideo(thresh,v,label)
         XP=uint8(xfor);
         LP=uint8(label{i});
         
-        TP=xfor.*label{i}; %hitung prediksi moving dengan benar
-        TN=~xfor.*~label{i}; %hitung prediksi moving dengan benar
+        TP=bsxfun(@times,xfor,label{i}); %hitung prediksi moving dengan benar
+        TN=bsxfun(@times,~xfor,~label{i}); %hitung prediksi moving dengan benar
         
         XP(XP==1)=10; %tanda blok api pada prediksi
         LP(LP==0)=10; %tanda blok bukan api pada label

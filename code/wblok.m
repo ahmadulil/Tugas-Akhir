@@ -8,6 +8,6 @@ function [eblok,Ew] = wblok(img,startp,endp)
 	HH1=HH.^2;
     
 	Ew=HL1+LH1+HH1;
-	eblok=sum(sum(Ew))/(n1+n2);
+	eblok=sum(sum(Ew))/(n1*n2);
 end
 

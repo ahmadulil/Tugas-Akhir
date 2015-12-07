@@ -76,27 +76,90 @@ varargout{1} = handles.output;
 % --- Executes on button press in Browseimage.
 function Browseimage_Callback(hObject, eventdata, handles) 
 global complete;
-% [fn pn] = uigetfile('*.mp4','select video file');
-% complete = strcat(pn,fn);
-complete='viplanedeparture.avi';
+[fn pn] = uigetfile('*.mp4','*.avi','select video file');
+complete = strcat(pn,fn);
 
 % --- Executes on button press in proses.
 function proses_Callback(hObject, eventdata, handles)
 global complete;
-vidObj = VideoReader(complete);
-for i=21:max(vidObj.NumberOfFrames) 
-    handles.axes1;
-    vidFrame = rgb2gray(read(vidObj,i));
-    foreground=bakground(20,vidObj,i);
-    imshow(foreground,[]);
-    pause(1/(vidObj.FrameRate));
-end
-%     handles.axes1;
-%     vidFrame = rgb2gray(read(vidObj,41));
-%     fore=uint8(vidFrame)-uint8(bacgroundsubstract(vidObj,41));
-%     foreground=(fore >=30);
-%     imshow(foreground,[]);
+load video.mat
+% vidObj = VideoReader(complete);
+vidObj = vfire3;
+tic
+load testskema1.mat;
+load trainfire.mat
+[m,n,l]=size(read(vidObj,1));
 
+divi=m/16;
+divj=n/16;
+sizeblok=divi*divj;
+
+threshd=sizeblok/8;
+count=0;
+    for k=1:vidObj.NumberOfFrame
+    [eblok,arrEblok(:,:,k)]=wblok(read(vidObj,k),[1 1],[m n]); %ngitung arre dlu biar cepet
+    end
+    for k=31:vidObj.NumberOfFrame
+        count=count+1;
+        sumblok=0;
+        sumspt=0;
+        waveblok=zeros(16,16);
+        sptfblok=zeros(16,16);
+        img=read(vidObj,k);
+        foreground=bakground(25,20,vidObj,k);
+        probimg=threshprob(model,thresholdprob+stdprob,read(vidObj,k));
+        axes(handles.axes5);
+        imshow(img);
+        
+        axes(handles.axes6);
+        imshow(foreground);
+        
+        axes(handles.axes11);
+        imshow(probimg);
+        for i=0:15
+            for j=0:15 %pembagian menjadi 16 blok
+                startp=[i*divi+1;j*divj+1]; %pixel blok
+                endp=[(i+1)*divi;(j+1)*divj]; %pixel blok %hitung nilai wblok
+                aktif=probimg.*foreground;
+                  if (sum(sum(foreground(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
+                     actblok(i+1,j+1)=1; %penanda label 
+                    sptfblok(i+1,j+1)=threshsptblok(thresholdspt+stdspt,vidObj,30,k,i,j,arrEblok); %ngitung sptblok
+                    if sptfblok(i+1,j+1)==1
+                        sumspt=sumspt+1;
+                        posptf{sumspt}=[startp(1) startp(2) 15 20];
+                    end
+                    waveblok(i+1,j+1)=threshwblok(thresholwblok+stdwblok,img,startp,endp); %ngitung waveblok
+                    if waveblok(i+1,j+1)==1
+                        sumblok=sumblok+1;
+                        poswave{sumblok}=[startp(1) startp(2) 15 20];
+                    end
+                  end
+            end       
+        end
+        if sumblok>0
+            axes(handles.axes8);
+            imshow(img);
+            for i=1:sumblok %menampilkan hasil waveblok
+                rectangle('Position',poswave{i},'LineWidth',1,'EdgeColor','r');
+                stringa{count}=strcat('Waveblok frame  ',int2str(k),' Fire')
+            end           
+        end
+        set(handles.listbox2,'string',stringa);
+        guidata(hObject, handles);
+        
+        if sumspt>0
+            axes(handles.axes11); 
+            imshow(img);
+            for i=1:sumspt %menampilkan hasil sptfblok
+                rectangle('Position',posptf{i},'LineWidth',1,'EdgeColor','r');
+                stringb{count}=strcat('Spteblok frame ',int2str(k),' Fire')
+                guidata(hObject, handles);
+            end         
+        end
+        set(handles.listbox3,'string',stringb);
+        guidata(hObject, handles);
+%         stop=5;
+end
 % --- Executes on selection change in popupmenu1.
 function popupmenu1_Callback(hObject, eventdata, handles)
 % hObject    handle to popupmenu1 (see GCBO)
