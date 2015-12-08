@@ -84,7 +84,7 @@ function proses_Callback(hObject, eventdata, handles)
 global complete;
 load video.mat
 % vidObj = VideoReader(complete);
-vidObj = vfire3;
+vidObj = vfire2;
 tic
 load testskema1.mat;
 load trainfire.mat
@@ -107,14 +107,14 @@ count=0;
         sptfblok=zeros(16,16);
         img=read(vidObj,k);
         foreground=bakground(25,20,vidObj,k);
-        probimg=threshprob(model,thresholdprob+stdprob,read(vidObj,k));
+        probimg=threshprob(model,thresholdprob+1/2*stdprob,read(vidObj,k));
         axes(handles.axes5);
         imshow(img);
         
         axes(handles.axes6);
         imshow(foreground);
         
-        axes(handles.axes11);
+        axes(handles.axes9);
         imshow(probimg);
         for i=0:15
             for j=0:15 %pembagian menjadi 16 blok
@@ -126,12 +126,12 @@ count=0;
                     sptfblok(i+1,j+1)=threshsptblok(thresholdspt+stdspt,vidObj,30,k,i,j,arrEblok); %ngitung sptblok
                     if sptfblok(i+1,j+1)==1
                         sumspt=sumspt+1;
-                        posptf{sumspt}=[startp(1) startp(2) 15 20];
+                        posptf{sumspt}=[startp(2) startp(1) 15 20];
                     end
                     waveblok(i+1,j+1)=threshwblok(thresholwblok+stdwblok,img,startp,endp); %ngitung waveblok
                     if waveblok(i+1,j+1)==1
                         sumblok=sumblok+1;
-                        poswave{sumblok}=[startp(1) startp(2) 15 20];
+                        poswave{sumblok}=[startp(2) startp(1) 15 20];
                     end
                   end
             end       
@@ -142,7 +142,9 @@ count=0;
             for i=1:sumblok %menampilkan hasil waveblok
                 rectangle('Position',poswave{i},'LineWidth',1,'EdgeColor','r');
                 stringa{count}=strcat('Waveblok frame  ',int2str(k),' Fire')
-            end           
+            end  
+        else
+            stringa{count}=strcat('Waveblok frame  ',int2str(k),' Not Fire')
         end
         set(handles.listbox2,'string',stringa);
         guidata(hObject, handles);
@@ -152,13 +154,14 @@ count=0;
             imshow(img);
             for i=1:sumspt %menampilkan hasil sptfblok
                 rectangle('Position',posptf{i},'LineWidth',1,'EdgeColor','r');
-                stringb{count}=strcat('Spteblok frame ',int2str(k),' Fire')
+                stringb{count}=strcat('Sptfblok frame ',int2str(k),' Fire')
                 guidata(hObject, handles);
-            end         
+            end        
+        else
+            stringb{count}=strcat('Sptfblok frame  ',int2str(k),' Not Fire');
         end
         set(handles.listbox3,'string',stringb);
         guidata(hObject, handles);
-%         stop=5;
 end
 % --- Executes on selection change in popupmenu1.
 function popupmenu1_Callback(hObject, eventdata, handles)
