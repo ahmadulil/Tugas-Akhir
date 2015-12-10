@@ -84,7 +84,7 @@ function proses_Callback(hObject, eventdata, handles)
 global complete;
 load video.mat
 % vidObj = VideoReader(complete);
-vidObj = vfire2;
+vidObj = vfire3;
 tic
 load testskema1.mat;
 load trainfire.mat
@@ -97,7 +97,7 @@ sizeblok=divi*divj;
 threshd=sizeblok/8;
 count=0;
     for k=1:vidObj.NumberOfFrame
-    [eblok,arrEblok(:,:,k)]=wblok(read(vidObj,k),[1 1],[m n]); %ngitung arre dlu biar cepet
+    arrEblok(:,:,k)=hitungwavelet(read(vidObj,k)); %ngitung arre dlu biar cepet
     end
     for k=31:vidObj.NumberOfFrame
         count=count+1;
@@ -107,31 +107,38 @@ count=0;
         sptfblok=zeros(16,16);
         img=read(vidObj,k);
         foreground=bakground(25,20,vidObj,k);
-        probimg=threshprob(model,thresholdprob+1/2*stdprob,read(vidObj,k));
+        probimg=threshprob(model,thresholdprob+stdprob,read(vidObj,k));
+        
+        aktif=probimg.*foreground;
         axes(handles.axes5);
         imshow(img);
         
         axes(handles.axes6);
         imshow(foreground);
         
-        axes(handles.axes9);
+        axes(handles.axes7);
         imshow(probimg);
+        
+        axes(handles.axes9);
+        imshow(aktif);
         for i=0:15
             for j=0:15 %pembagian menjadi 16 blok
                 startp=[i*divi+1;j*divj+1]; %pixel blok
                 endp=[(i+1)*divi;(j+1)*divj]; %pixel blok %hitung nilai wblok
-                aktif=probimg.*foreground;
-                  if (sum(sum(foreground(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
-                     actblok(i+1,j+1)=1; %penanda label 
-                    sptfblok(i+1,j+1)=threshsptblok(thresholdspt+stdspt,vidObj,30,k,i,j,arrEblok); %ngitung sptblok
-                    if sptfblok(i+1,j+1)==1
-                        sumspt=sumspt+1;
-                        posptf{sumspt}=[startp(2) startp(1) 15 20];
-                    end
-                    waveblok(i+1,j+1)=threshwblok(thresholwblok+stdwblok,img,startp,endp); %ngitung waveblok
+      
+                  if (sum(sum(aktif(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
+%                     actblok(i+1,j+1)=1; %penanda label 
+                    waveblok(i+1,j+1)=threshwblok(thresholwblok+stdwblok,i,j,arrEblok(:,:,k)); %ngitung waveblok
                     if waveblok(i+1,j+1)==1
                         sumblok=sumblok+1;
-                        poswave{sumblok}=[startp(2) startp(1) 15 20];
+                        poswave{sumblok}=[startp(2) startp(1) 20 15];
+                        
+                        sptfblok(i+1,j+1)=threshsptblok(thresholdspt+stdspt,30,k,i,j,arrEblok); %ngitung sptblok
+                        if sptfblok(i+1,j+1)==1
+                            sumspt=sumspt+1;
+                            posptf{sumspt}=[startp(2) startp(1) 20 15];
+                        end
+                        
                     end
                   end
             end       

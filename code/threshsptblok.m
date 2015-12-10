@@ -1,5 +1,5 @@
-function out = threshsptblok(thresh,video,nframe,ncurent,startp,endp,arrEblok)
-    if (sptblok(video,nframe,ncurent,startp,endp,arrEblok) > thresh)
+function out = threshsptblok(thresh,nframe,ncurent,i,j,arrEblok)
+    if (sptblok(nframe,ncurent,i,j,arrEblok) > thresh)
         out=1;
     else
         out=0;
