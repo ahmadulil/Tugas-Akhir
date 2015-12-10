@@ -83,11 +83,14 @@ complete = strcat(pn,fn);
 function proses_Callback(hObject, eventdata, handles)
 global complete;
 load video.mat
+load a.mat
 % vidObj = VideoReader(complete);
-vidObj = vfire3;
+vidObj = a;
 tic
 load testskema1.mat;
 load trainfire.mat
+load akak.mat
+
 [m,n,l]=size(read(vidObj,1));
 
 divi=m/16;
@@ -107,7 +110,7 @@ count=0;
         sptfblok=zeros(16,16);
         img=read(vidObj,k);
         foreground=bakground(25,20,vidObj,k);
-        probimg=threshprob(model,thresholdprob+stdprob,read(vidObj,k));
+        probimg=threshprob(model,mina+stda,read(vidObj,k));
         
         aktif=probimg.*foreground;
         axes(handles.axes5);
