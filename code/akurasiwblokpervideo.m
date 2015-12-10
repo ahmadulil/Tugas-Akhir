@@ -8,6 +8,10 @@ sizeblok=divi*divj;
 threshd=sizeblok/8; %threshold 12,5 % aktif fire
 
 for k=1:length(label)
+    arrEblok(:,:,k)=hitungwavelet(read(video,k)); %ngitung arre dlu biar cepet
+end
+
+for k=1:length(label)
     rgb=read(video,k);
     actblok=zeros(16,16);
     waveblok=zeros(16,16);
@@ -15,9 +19,8 @@ for k=1:length(label)
         for j=0:15 %pembagian menjadi 16 blok
             startp=[i*divi+1;j*divj+1]; %pixel blok
             endp=[(i+1)*divi;(j+1)*divj]; %pixel blok
-            startp=uint8(startp);
-            endp=uint8(endp);
-            waveblok(i+1,j+1)=threshwblok(thresh,rgb,startp,endp); %hitung nilai wblok
+        
+            waveblok(i+1,j+1)=threshwblok(thresh,i,j,arrEblok(:,:,k)); %hitung nilai wblok
             
             if (sum(sum(label{k}(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
                 actblok(i+1,j+1)=1; %penanda label 
