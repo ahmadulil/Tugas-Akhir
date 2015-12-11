@@ -87,6 +87,7 @@ vidObj = VideoReader(complete);
 % vidObj = vfire2;
 tic
 load testskema1.mat;
+load testskema2.mat;
 load trainfirefireimage2label.mat;
 load mindanstdalastprobimgfireimage1.mat;
 
@@ -130,12 +131,12 @@ count=0;
       
                   if (sum(sum(aktif(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
 %                     actblok(i+1,j+1)=1; %penanda label 
-                    waveblok(i+1,j+1)=threshwblok(thresholwblok+stdwblok,i,j,arrEblok(:,:,k)); %ngitung waveblok
+                    waveblok(i+1,j+1)=threshwblok(minwblokbaru+2*stdwblokbaru,i,j,arrEblok(:,:,k)); %ngitung waveblok
                     if waveblok(i+1,j+1)==1
                         sumblok=sumblok+1;
                         poswave{sumblok}=[startp(2) startp(1) 20 15];
                         
-                        sptfblok(i+1,j+1)=threshsptblok(thresholdspt+stdspt,30,k,i,j,arrEblok); %ngitung sptblok
+                        sptfblok(i+1,j+1)=threshsptblok(minsptbaru+stdsptbaru,30,k,i,j,arrEblok); %ngitung sptblok
                         if sptfblok(i+1,j+1)==1
                             sumspt=sumspt+1;
                             posptf{sumspt}=[startp(2) startp(1) 20 15];
