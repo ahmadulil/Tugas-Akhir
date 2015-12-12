@@ -19,9 +19,10 @@ startf=ncurent-nframe;
 
 startp(2)=j*divj+1; %pixel blok
 endp(2)=(j+1)*divj; %pixel blok
-
+% startp(2)
+% endp(2)
 arrE=arrEblok(startp(1):endp(1),startp(2):endp(2),startf:ncurent-1); %ambil array nilai wavelet pada blok
-v(:,:)=var(arrE(:,:,:)); %hitung variansi 
+v=var(arrE,0,3); %hitung variansi 
 % size(v)
 [n1,n2]=size(v);
 vblok=sum(sum(v))/(sizeblok);

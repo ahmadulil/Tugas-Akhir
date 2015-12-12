@@ -1,24 +1,24 @@
-function Fblok = Flickblok(thresh,nframe,curentframe,video,startpx,endpx)
+function Fblok = Flickblok(nframe,curentframe,allprob,i,j)
+load trainfirekmeans.mat;
 
-    sumf=0;
-    sum=0;
+[m,n,l]=size(allprob);
 
-imgc=read(video,curentframe);
-cprob(:,:)=threshprob(21,imgc(startpx(1):endpx(1),startpx(2):endpx(2)));
-bakground(thresh,nframe,video,curentframe)
-bakgr=bakground(25,20,video,curentframe);
+divi=m/16; %pembagian blok
+divj=n/16; %pembagian blok
+sizeblok=divi*divj;
 
-m=endpx(1)-startpx(1)+1
-n=endpx(2)-startpx(2)+1
+startp=[i*divi+1;j*divj+1]; %pixel blok
+endp=[(i+1)*divi;(j+1)*divj]; %pixel blok
 
-nsum(:,:)=zeros(m,n);
+cprob=allprob(startp(1):endp(1),startp(2):endp(2),curentframe); %ambil prob curent frame
+
+nsum(:,:)=zeros(divi,divj);
 for i=curentframe-nframe:curentframe-1
-    ibakgr=bakground(25,20,video,i);
-    iprob(:,:)=threshprob(21,imgc(startpx(1):endpx(1),startpx(2):endpx(2)));
-    flikbr=bakgr-ibakgr;
-    flickprob=cprob-iprob;
-    hasil=or(flikbr,flickprob);
-    nsum(:,:)=nsum(:,:)+(hasil);
+    iprob=allprob(startp(1):endp(1),startp(2):endp(2),i); %ambil prob ke i
+    hasil=xor(iprob,cprob); %membadingkan prob curentframe dengan prob ke i (temporal ke belakang)
+    nsum=nsum+hasil; %
 end
+    F=(2.^nsum) - 1;
+    Fblok=sum(sum(F))./sizeblok;
 end
 

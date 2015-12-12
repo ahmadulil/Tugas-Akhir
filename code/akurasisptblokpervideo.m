@@ -10,6 +10,7 @@ for k=1:length(label)
     arrEblok(:,:,k)=hitungwavelet(read(video,k)); %ngitung arre dlu biar cepet
 end
 
+
 for k=31:length(label)
     actblok=zeros(16,16);
     sptfblok=zeros(16,16);
@@ -18,8 +19,7 @@ for k=31:length(label)
             startp=[i*divi+1;j*divj+1]; %pixel blok
             endp=[(i+1)*divi;(j+1)*divj]; %pixel blok
             
-            startp=uint8(startp);
-            endp=uint8(endp);
+            
 %             function out = threshsptblok(thresh,video,nframe,ncurent,startp,endp,arrEblok)
             sptfblok(i+1,j+1)=threshsptblok(thresh,30,k,i,j,arrEblok); %hitung nilai wblok
             

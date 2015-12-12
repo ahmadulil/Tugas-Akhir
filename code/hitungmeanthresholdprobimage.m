@@ -3,3 +3,7 @@
 [meanTPR(3),meanFPR(3),meanTNR(3),meanFNR(3)]=hitungmeanprob(akurasi3);
 [meanTPR(4),meanFPR(4),meanTNR(4),meanFNR(4)]=hitungmeanprob(akurasi4);
 [meanTPR(5),meanFPR(5),meanTNR(5),meanFNR(5)]=hitungmeanprob(akurasi5);
+[meanTPR(6),meanFPR(6),meanTNR(6),meanFNR(6)]=hitungmeanprob(akurasi6);
+[meanTPR(7),meanFPR(7),meanTNR(7),meanFNR(7)]=hitungmeanprob(akurasi7);
+[meanTPR(8),meanFPR(8),meanTNR(8),meanFNR(8)]=hitungmeanprob(akurasi8);
+[meanTPR(9),meanFPR(9),meanTNR(9),meanFNR(9)]=hitungmeanprob(akurasi9);

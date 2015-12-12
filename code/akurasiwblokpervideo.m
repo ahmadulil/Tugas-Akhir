@@ -12,7 +12,6 @@ for k=1:length(label)
 end
 
 for k=1:length(label)
-    rgb=read(video,k);
     actblok=zeros(16,16);
     waveblok=zeros(16,16);
     for i=0:15

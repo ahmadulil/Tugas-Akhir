@@ -1,6 +1,5 @@
 function out = fireprob4(model,img)
 
-
 [m,n,l]=size(img);
 term1=1;
 

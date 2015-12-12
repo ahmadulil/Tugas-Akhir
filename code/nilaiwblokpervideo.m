@@ -4,8 +4,7 @@ divi=m/16;
 divj=n/16;
 sizeblok=divi*divj;
 
-actblok=zeros(16,16);
-waveblok=zeros(16,16);
+
 threshd=sizeblok/8;
 
 for k=1:length(label)
@@ -13,7 +12,9 @@ for k=1:length(label)
 end
 
 for k=1:length(label)
-    rgb=read(video,k);
+    actblok=zeros(16,16);
+    waveblok=zeros(16,16);
+    
     for i=0:15
         for j=0:15
             startp=[i*divi+1;j*divj+1];
@@ -28,3 +29,4 @@ for k=1:length(label)
     hasil{k}(:,:)=bsxfun(@times,actblok,waveblok);
 end
 out=hasil;
+end

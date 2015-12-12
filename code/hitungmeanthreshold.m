@@ -5,13 +5,16 @@ for i=1:length(hasil1)
     sumTNR=0;
     sumFNR=0;
     sumasi=0;
-%     for j=31:length(hasil1{i})
+    for j=31:length(hasil1{i})
+        if isnan(hasil1{i}(j).TPR)
+            hasil1{i}(j).FNR=0;
+        end
         sumasi=sumasi+1;
         sumTPR=sumTPR+hasil1{i}(j).TPR;
         sumFPR=sumFPR+hasil1{i}(j).FPR;
         sumTNR=sumTNR+hasil1{i}(j).TNR;
         sumFNR=sumFNR+hasil1{i}(j).FNR;
-%     end
+    end
     meanTPR(i)=sumTPR/sumasi;
     meanFPR(i)=sumFPR/sumasi;
     meanTNR(i)=sumTNR/sumasi;

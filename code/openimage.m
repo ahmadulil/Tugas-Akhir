@@ -44,6 +44,13 @@ for i = 1 : length(srcFiles)
     fire3{i} = imread(filename);
     fire3{i} = im2bw(fire3{i},0.9);
 end
+%fire 4 C:\Users\Asprak-69\Documents\Sisrek Ulil\Tugas-Akhir\code\video label\fire 3\new label
+srcFiles = dir('video label\fire 4\label\*.jpg');  % the folder in which ur images exists
+for i = 1 : length(srcFiles)
+    filename = strcat('video label\fire 4\label\',int2str(i),'.jpg');
+    fire4{i} = imread(filename);
+    fire4{i} = im2bw(fire4{i},0.9);
+end
 
  %fire ciri
 srcFiles = dir('video label\ciri 1\*.jpg');  % the folder in which ur images exists
@@ -67,4 +74,4 @@ for i = 1 : length(srcFiles)
     ciri3{i} = im2bw(ciri3{i},0.9);
 end
 
-save('videolabel.mat','nonfire1','nonfire2','nonfire3','fire1','fire2','fire3','ciri1','ciri2','ciri3');
+save('videolabel.mat','nonfire1','nonfire2','nonfire3','fire1','fire2','fire3','fire4','ciri1','ciri2','ciri3');

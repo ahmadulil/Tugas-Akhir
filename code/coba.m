@@ -88,9 +88,8 @@ vidObj = VideoReader(complete);
 tic
 load testskema1.mat;
 load testskema2.mat;
-load trainfirefireimage2label.mat;
-load mindanstdalastprobimgfireimage1.mat;
-
+load trainfirekmeans.mat;
+load minmaxstdmeanprobimgbaru.mat;
 [m,n,l]=size(read(vidObj,1));
 
 divi=m/16;
@@ -110,7 +109,7 @@ count=0;
         sptfblok=zeros(16,16);
         img=read(vidObj,k);
         foreground=bakground(25,20,vidObj,k);
-        probimg=threshprob(model,mina+stda,read(vidObj,k));
+        probimg=threshprobimgbaru(model,mina+2*stda,maxa,read(vidObj,k));
         
         aktif=probimg.*foreground;
         axes(handles.axes5);
