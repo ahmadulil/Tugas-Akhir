@@ -2,9 +2,9 @@ function out = akurasiflickblokallvideo(thresh,min,max)
 load video.mat;
 load videolabel.mat;
 % akurasiflickblokpervideo(thresh,min,max,video,label)
-akurasi{1}=akurasiflickblokpervideo(thresh,min,max,vfire1,fire1);
-akurasi{2}=akurasiflickblokpervideo(thresh,min,max,vfire2,fire2);
-akurasi{3}=akurasiflickblokpervideo(thresh,min,max,vfire4,fire4);
+akurasi{1}=akurasiflickblokpervideononfire(thresh,min,max,vnonfire1,nonfire1);
+akurasi{2}=akurasiflickblokpervideononfire(thresh,min,max,vciri1,ciri1);
+akurasi{3}=akurasiflickblokpervideononfire(thresh,min,max,vciri2,ciri2);
 
 out=akurasi;
 end

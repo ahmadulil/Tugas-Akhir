@@ -90,8 +90,6 @@ load testskema1.mat;
 load testskema2.mat;
 load trainfirekmeans.mat;
 load minmaxstdmeanprobimgbaru.mat;
-load skema1flick.mat;
-
 [m,n,l]=size(read(vidObj,1));
 
 divi=m/16;
@@ -102,7 +100,7 @@ threshd=sizeblok/8;
 count=0;
     for k=1:vidObj.NumberOfFrame
         arrEblok(:,:,k)=hitungwavelet(read(vidObj,k)); %ngitung arre dlu biar cepet
-        allprob(:,:,k)=threshprobimgbaru(model,mina+2*stda,maxa,read(vidObj,k)); %htiung semua probimg
+        allprob(:,:)
     end
     for k=31:vidObj.NumberOfFrame
         count=count+1;
@@ -111,13 +109,9 @@ count=0;
         sumflick=0;
         waveblok=zeros(16,16);
         sptfblok=zeros(16,16);
-        fblok=zeros(16,16);
-        
         img=read(vidObj,k);
-        
-        foreground=bakground(20,20,vidObj,k);
-        
-        probimg=allprob(:,:,k);
+        foreground=bakground(25,20,vidObj,k);
+        probimg=threshprobimgbaru(model,mina+2*stda,maxa,read(vidObj,k));
         
         aktif=probimg.*foreground;
         axes(handles.axes5);
@@ -145,28 +139,20 @@ count=0;
                         
                         sptfblok(i+1,j+1)=threshsptblok(minsptbaru,30,k,i,j,arrEblok); %ngitung sptblok
                         if sptfblok(i+1,j+1)==1
-%                             threshflickblok(thresh,nframe,curentframe,allprob,i,j)
-                            fblok(i+1,j+1)=threshflickblok(0.65*stdflick,30,k,allprob,i,j);
                             sumspt=sumspt+1;
                             posptf{sumspt}=[startp(2) startp(1) 20 15];
-                            if fblok(i+1,j+1)==1
-                                sumflick=sumflick+1;
-                                posfblok{sumflick}=[startp(2) startp(1) 20 15];
-                            end
                         end
                         
                     end
                   end
             end       
         end
-        
-        
-        axes(handles.axes8);
-        imshow(img);
         if sumblok>0
+            axes(handles.axes8);
+            imshow(img);
             for i=1:sumblok %menampilkan hasil waveblok
                 rectangle('Position',poswave{i},'LineWidth',1,'EdgeColor','r');
-                stringa{count}=strcat('Waveblok frame  ',int2str(k),' Fire');
+                stringa{count}=strcat('Waveblok frame  ',int2str(k),' Fire')
             end  
         else
             stringa{count}=strcat('Waveblok frame  ',int2str(k),' Not Fire')
@@ -174,33 +160,18 @@ count=0;
         set(handles.listbox2,'string',stringa);
         guidata(hObject, handles);
         
-        axes(handles.axes11); 
-        imshow(img);
         if sumspt>0
-          
+            axes(handles.axes11); 
+            imshow(img);
             for i=1:sumspt %menampilkan hasil sptfblok
                 rectangle('Position',posptf{i},'LineWidth',1,'EdgeColor','r');
-                stringb{count}=strcat('Sptfblok frame ',int2str(k),' Fire');
+                stringb{count}=strcat('Sptfblok frame ',int2str(k),' Fire')
                 guidata(hObject, handles);
             end        
         else
             stringb{count}=strcat('Sptfblok frame  ',int2str(k),' Not Fire');
         end
         set(handles.listbox3,'string',stringb);
-        guidata(hObject, handles);
-        
-        axes(handles.axes12); 
-        imshow(img);
-        if sumflick>0
-            for i=1:sumflick %menampilkan hasil sptfblok
-                rectangle('Position',posfblok{i},'LineWidth',1,'EdgeColor','r');
-                stringc{count}=strcat('Flikblok frame ',int2str(k),' Fire');
-                guidata(hObject, handles);
-            end        
-        else
-            stringc{count}=strcat('Flikblok frame  ',int2str(k),' Not Fire');
-        end
-        set(handles.listbox4,'string',stringc);
         guidata(hObject, handles);
 end
 % --- Executes on selection change in popupmenu1.

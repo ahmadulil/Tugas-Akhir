@@ -6,7 +6,7 @@ for i=1:length(hasil1)
     sumFNR=0;
     sumasi=0;
     for j=31:length(hasil1{i})
-        if isnan(hasil1{i}(j).TPR)
+        if isnan(hasil1{i}(j).FNR)
             hasil1{i}(j).FNR=0;
         end
         sumasi=sumasi+1;
