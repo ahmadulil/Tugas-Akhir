@@ -1,5 +1,5 @@
 function Ew = hitungwavelet(img)
-	[LL,LH,HL,HH]=dwt2(img(:,:,1),'db1');
+	[LL,LH,HL,HH]=dwt2(img(:,:,1),'haar');
 	
     [n1,n2]=size(LL);
 	

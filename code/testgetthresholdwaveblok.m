@@ -1,9 +1,9 @@
 for i=1:length(video1)
      coba1(i,:)=reshape(video1{i},[],1)';
 end
-% % % for i=1:length(video2)
-% % %      coba2(i,:)=reshape(video2{i},[],1)';
-% % % end
+% for i=1:length(video2)
+%      coba2(i,:)=reshape(video2{i},[],1)';
+% end
 % for i=1:length(video3)
 %      coba3(i,:)=reshape(video3{i},[],1)';
 % end

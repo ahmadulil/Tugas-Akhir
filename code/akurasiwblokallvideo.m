@@ -2,9 +2,9 @@ function out = akurasiwblokallvideo(thresh)
 load video.mat;
 load videolabel.mat;
 
-akurasi{1}=akurasiwblokpervideononfire(thresh,vciri1,ciri1);
-akurasi{2}=akurasiwblokpervideononfire(thresh,vciri2,ciri2);
-akurasi{3}=akurasiwblokpervideononfire(thresh,vciri3,ciri3);
+akurasi{1}=akurasiwblokpervideo(thresh,vfire2,fire2);
+akurasi{2}=akurasiwblokpervideo(thresh,vfire3,fire3);
+akurasi{3}=akurasiwblokpervideo(thresh,vfire4,fire4);
 
 out=akurasi;
 

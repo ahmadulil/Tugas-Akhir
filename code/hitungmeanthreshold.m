@@ -5,7 +5,10 @@ for i=1:length(hasil1)
     sumTNR=0;
     sumFNR=0;
     sumasi=0;
-    for j=31:length(hasil1{i})
+    for j=1:length(hasil1{i})
+        if isnan(hasil1{i}(j).TPR)
+            hasil1{i}(j).TPR=0;
+        end
         if isnan(hasil1{i}(j).FNR)
             hasil1{i}(j).FNR=0;
         end
