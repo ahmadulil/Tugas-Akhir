@@ -100,6 +100,12 @@ sizeblok=divi*divj;
 
 threshd=sizeblok/8;
 count=0;
+
+stringa={};
+stringb={};
+stringc={};
+stringd={};
+
     for k=1:vidObj.NumberOfFrame
         arrEblok(:,:,k)=hitungwavelet(read(vidObj,k)); %ngitung arre dlu biar cepet
         allprob(:,:,k)=threshprobimgbaru(model,mina+2*stda,maxa,read(vidObj,k)); %htiung semua probimg
@@ -138,15 +144,15 @@ count=0;
       
                   if (sum(sum(aktif(startp(1):endp(1),startp(2):endp(2))==1)) > threshd)
 %                     actblok(i+1,j+1)=1; %penanda label 
-                    waveblok(i+1,j+1)=threshwblok(minwblokbaru+2*stdwblokbaru,i,j,arrEblok(:,:,k)); %ngitung waveblok
+                    waveblok(i+1,j+1)=threshwblok(minwblokbaru+3*stdwblokbaru,i,j,arrEblok(:,:,k)); %ngitung waveblok
                     if waveblok(i+1,j+1)==1
                         sumblok=sumblok+1;
                         poswave{sumblok}=[startp(2) startp(1) 20 15];
                         
-                        sptfblok(i+1,j+1)=threshsptblok(minsptbaru,30,k,i,j,arrEblok); %ngitung sptblok
+                        sptfblok(i+1,j+1)=threshsptblok(minsptbaru+stdsptbaru,30,k,i,j,arrEblok); %ngitung sptblok
                         if sptfblok(i+1,j+1)==1
 %                             threshflickblok(thresh,nframe,curentframe,allprob,i,j)
-                            fblok(i+1,j+1)=threshflickblok(0.65*stdflick,30,k,allprob,i,j);
+                            fblok(i+1,j+1)=threshflickblok(0.2*stdflick,30,k,allprob,i,j);
                             sumspt=sumspt+1;
                             posptf{sumspt}=[startp(2) startp(1) 20 15];
                             if fblok(i+1,j+1)==1
@@ -164,12 +170,13 @@ count=0;
         axes(handles.axes8);
         imshow(img);
         if sumblok>0
+            stringa=[strcat('Waveblok frame  ',int2str(k),' Fire');stringa];
             for i=1:sumblok %menampilkan hasil waveblok
                 rectangle('Position',poswave{i},'LineWidth',1,'EdgeColor','r');
-                stringa{count}=strcat('Waveblok frame  ',int2str(k),' Fire');
+                
             end  
         else
-            stringa{count}=strcat('Waveblok frame  ',int2str(k),' Not Fire')
+            stringa=[strcat('Waveblok frame  ',int2str(k),' Not Fire');stringa];
         end
         set(handles.listbox2,'string',stringa);
         guidata(hObject, handles);
@@ -177,30 +184,36 @@ count=0;
         axes(handles.axes11); 
         imshow(img);
         if sumspt>0
-          
+          stringb = [strcat('Sptfblok frame ',int2str(k),' Fire') ;stringb];
             for i=1:sumspt %menampilkan hasil sptfblok
                 rectangle('Position',posptf{i},'LineWidth',1,'EdgeColor','r');
-                stringb{count}=strcat('Sptfblok frame ',int2str(k),' Fire');
+                
                 guidata(hObject, handles);
             end        
         else
-            stringb{count}=strcat('Sptfblok frame  ',int2str(k),' Not Fire');
+            stringb = [strcat('Sptfblok frame  ',int2str(k),' Not Fire') ;stringb];
         end
-        set(handles.listbox3,'string',stringb);
+        set(handles.listbox4,'string',stringb);
         guidata(hObject, handles);
         
         axes(handles.axes12); 
         imshow(img);
         if sumflick>0
-            for i=1:sumflick %menampilkan hasil sptfblok
+            stringd = [strcat('Frame ',int2str(k),' Fire'); stringd];
+            stringc = [strcat('Flikblok frame ',int2str(k),' Fire'); stringc];
+            for i=1:sumflick %menampilkan hasil flickblok
                 rectangle('Position',posfblok{i},'LineWidth',1,'EdgeColor','r');
-                stringc{count}=strcat('Flikblok frame ',int2str(k),' Fire');
+
                 guidata(hObject, handles);
             end        
         else
-            stringc{count}=strcat('Flikblok frame  ',int2str(k),' Not Fire');
+            stringc = [strcat('Flikblok frame ',int2str(k),' Not Fire'); stringc]; %buat nampilin ke gui
+%             stringd{count}=strcat('Frame ',int2str(k),' Not Fire');
+            stringd = [strcat('Frame ',int2str(k),' Not Fire'); stringd];
         end
-        set(handles.listbox4,'string',stringc);
+        set(handles.listbox3,'string',stringc);
+        guidata(hObject, handles);
+        set(handles.listbox5,'string',stringd);
         guidata(hObject, handles);
 end
 % --- Executes on selection change in popupmenu1.
