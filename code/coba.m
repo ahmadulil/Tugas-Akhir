@@ -152,7 +152,7 @@ stringd={};
                         sptfblok(i+1,j+1)=threshsptblok(minsptbaru+stdsptbaru,30,k,i,j,arrEblok); %ngitung sptblok
                         if sptfblok(i+1,j+1)==1
 %                             threshflickblok(thresh,nframe,curentframe,allprob,i,j)
-                            fblok(i+1,j+1)=threshflickblok(0.1*stdflick,30,k,allprob,i,j);
+                            fblok(i+1,j+1)=threshflickblok(minflick,30,k,allprob,i,j);
                             sumspt=sumspt+1;
                             posptf{sumspt}=[startp(2) startp(1) 20 15];
                             if fblok(i+1,j+1)==1
